@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Show Task{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center; margin: 15px 0px;" >Welcome To Show Tasks Page</h1>
+<div style="width: 80%; margin: auto;">
+    
+    <h1 style="width: 50%; text-align: center; margin: auto; background-color:darkviolet ; color: white; border-radius: 5px;">Tasks</h1>
+    {% if task %}
+        <table style="margin-top: 15px;" class="table table-bordered">
+            <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in task %}
+                    {% if item.is_completed is False %}
+                    <tr>
+                        <td scope="row">{{item.task_title}}</td>
+                        <td scope="row">{{item.task_description}}</td>
+                        <td scope="row" style="text-align: center; width: 15%;">Incomplete</td>
+                        <td style="text-align: center; width: 20%;"><a href="{% url 'delete_task' id=item.id %}" class="btn btn-danger btn-sm">Delete</a> <a class="btn btn-primary btn-sm" href="{% url 'edit_task' id=item.id %}">Edit</a> <a class="btn btn-success btn-sm" href="{% url 'completed_tasks' item.id %}">Complete</a></td>
+                     </tr>
+                     {% endif %}
+
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        {% else %}
+        <h3 style="text-align: center;">No Task Available</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

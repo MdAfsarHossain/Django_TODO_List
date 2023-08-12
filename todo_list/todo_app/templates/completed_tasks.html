@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Complete Todo{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; margin-top: 15px;" >Welcome To Complete Tasks Page</h1>
+<div style="width: 80%; margin: auto;">
+
+    {% if task %}
+        <table class="table table-bordered">
+            <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in task %}
+                    {% if item.is_completed is True %}
+                        <tr>
+                            <td scope="row">{{item.task_title}}</td>
+                            <td scope="row">{{item.task_description}}</td>
+                            <td scope="row" style="text-align: center;">Complete</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        {% else %}
+        <h3 style="text-align: center;">No Complete Task Available</h3>
+    {% endif %}
+</div>
+
+{% endblock %}
